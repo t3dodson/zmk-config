@@ -20,6 +20,14 @@
 // setup here
 // https://github.com/urob/zmk-helpers?tab=readme-ov-file#installation
 
+// lot's of commands work off of layer index
+// let's give the layers names
+// but we have to manually ensure the order
+
+#define BASE_L 0
+#define ED_L 1
+#define NUM_L 2
+
 /*
   ╭────────────────────────┬────────────────────────╮ ╭─────────────────────────┬─────────────────────────╮
   │  0   1   2   3   4   5 │  6   7   8   9  10  11 │ │ LT5 LT4 LT3 LT2 LT1 LT0 │ RT0 RT1 RT2 RT3 RT4 RT5 │
@@ -29,6 +37,11 @@
               ╰────────────┴────────────╯                         ╰─────────────┴─────────────╯
 */
 
+ZMK_COMBO(backspace_l, &kp BSPC, RM0 RM1)
+ZMK_COMBO(backspace_r, &kp BSPC, LM0 LM1)
+ZMK_COMBO(del_l, &kp DEL, RT0 RT1)
+ZMK_COMBO(del_r, &kp DEL, LT0 LT1)
+
 #define KEYS_L LT0 LT1 LT2 LT3 LT4 LT5 LM0 LM1 LM2 LM3 LM4 LM5 LB0 LB1 LB2 LB3 LB4 LB5
 #define KEYS_R RT0 RT1 RT2 RT3 RT4 RT5 RM0 RM1 RM2 RM3 RM4 RM5 RB0 RB1 RB2 RB3 RB4 RB5
 #define THUMBS LH0 LH1 LH2 RH0 RH1 RH2
@@ -37,33 +50,25 @@
 #define HOME_ROW_MODS_REQUIRE_PRIOR_IDLE_MS 150
 
 ZMK_HOLD_TAP(hml,
-     flavor = "balanced";
-     tapping-term-ms = <HOME_ROW_MODS_TAPPING_TERM_MS>;
-     require-prior-idle-ms = <HOME_ROW_MODS_REQUIRE_PRIOR_IDLE_MS>;
-     hold-trigger-key-positions = <KEYS_R THUMBS>;
-     hold-trigger-on-release;
-     bindings = <&kp>, <&kp>;
- )
- 
- ZMK_HOLD_TAP(hmr,
-     flavor = "balanced";
-     tapping-term-ms = <HOME_ROW_MODS_TAPPING_TERM_MS>;
-     require-prior-idle-ms = <HOME_ROW_MODS_REQUIRE_PRIOR_IDLE_MS>;
-     hold-trigger-key-positions = <KEYS_L THUMBS>;
-     hold-trigger-on-release;
-     bindings = <&kp>, <&kp>;
- )
+    flavor = "balanced";
+    tapping-term-ms = <HOME_ROW_MODS_TAPPING_TERM_MS>;
+    require-prior-idle-ms = <HOME_ROW_MODS_REQUIRE_PRIOR_IDLE_MS>;
+    hold-trigger-key-positions = <KEYS_R THUMBS>;
+    hold-trigger-on-release;
+    bindings = <&kp>, <&kp>;
+)
+
+ZMK_HOLD_TAP(hmr,
+    flavor = "balanced";
+    tapping-term-ms = <HOME_ROW_MODS_TAPPING_TERM_MS>;
+    require-prior-idle-ms = <HOME_ROW_MODS_REQUIRE_PRIOR_IDLE_MS>;
+    hold-trigger-key-positions = <KEYS_L THUMBS>;
+    hold-trigger-on-release;
+    bindings = <&kp>, <&kp>;
+)
 
 //  unless defined otherwise I want no fall through by default
 #define _____ &none
-
-// lot's of commands work off of layer index
-// let's give the layers names
-// but we have to manually ensure the order
-
-#define DEF_L 0
-#define ED_L 1
-#define TODO_L 2
 
 /*
 
@@ -82,9 +87,12 @@ ZMK_LAYER(blank,
 */
 
 // TODO N1 ... N9, N0
-/* missing keys on homerow from moonlander 1-0-= bspc del \ ESC RSHIFT win nav_fw_bk */
+/* missing keys on homerow from moonlander 1-0-= bspc del \ ESC RSHIFT nav_fw_bk */
 
-ZMK_LAYER(default,
+// https://zmk.dev/docs/keymaps/list-of-keycodes
+// https://github.com/urob/zmk-helpers/blob/main/docs/core_helpers.md
+
+ZMK_LAYER(base,
      // ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮                 ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
           &kp TAB       &kp Q         &kp W         &kp E         &kp R         &kp T                           &kp Y         &kp U         &kp I         &kp O         &kp P          &kp BSLH
      // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤                 ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
@@ -92,27 +100,28 @@ ZMK_LAYER(default,
      // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤                 ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
           _____         &kp Z         &kp X         &kp C         &kp V         &kp B                           &kp N         &kp M         &kp COMMA     &kp DOT       &kp FSLH       &kp GRAVE
      // ╰─────────────┴─────────────┴─────────────┴──────┬─────────────┬─────────────┬──────╯──────╮   ╭──────╰──────┬──────┴──────┬──────┴──────┬──────┴─────────────┴─────────────┴─────────────╯
-                                                           _____         &mo ED_L      &kp SPACE         &kp RET       &mo TODO_L    &kp LGUI
+                                                           &mo ED_L      &mo NUM_L     &kp SPACE         &kp RET       _____         _____
      //                                                  ╰─────────────┴─────────────┴─────────────╯   ╰─────────────┴─────────────┴─────────────╯
 )
 
 ZMK_LAYER(editor,
      // ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮                 ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
+          _____         _____         _____         _____         &kp END       _____                           _____         _____         _____         _____         &kp HOME      _____
+     // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤                 ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+          _____         &kp LGUI      &kp LALT      &kp LCTRL     &kp LSHFT     _____                           &kp LEFT      &kp DOWN      &kp UP        &kp RIGHT     _____         _____
+     // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤                 ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
           _____         _____         _____         _____         _____         _____                           _____         _____         _____         _____         _____         _____
-     // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤                 ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-          _____         _____         _____         _____         _____         &kp DEL                         &kp LEFT      &kp DOWN      &kp UP        &kp RIGHT     _____         _____
-     // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤                 ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-          _____         _____         _____         _____         _____         &kp BSPC                        &kp BSPC      _____         _____         _____         _____         _____
      // ╰─────────────┴─────────────┴─────────────┴──────┬─────────────┬─────────────┬──────╯──────╮   ╭──────╰──────┬──────┴──────┬──────┴──────┬──────┴─────────────┴─────────────┴─────────────╯
                                                            _____         _____         _____             _____         _____         _____
      //                                                  ╰─────────────┴─────────────┴─────────────╯   ╰─────────────┴─────────────┴─────────────╯
 )
+//                                      <- alt,   -> alt same for browser? with shift key?
 
-ZMK_LAYER(todo,
+ZMK_LAYER(num,
      // ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮                 ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
-          _____         _____         _____         _____         _____         _____                           _____         _____         _____         _____         _____         _____
+          _____         &kp N1        &kp N2        &kp N3        &kp N4        &kp N5                          &kp N6        &kp N7        &kp N8        &kp N9        &kp N0        _____
      // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤                 ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-          _____         _____         _____         _____         _____         _____                           _____         _____         _____         _____         _____         _____
+          _____         &kp LGUI      &kp LALT      &kp LCTRL     &kp LSHFT     _____                           _____         &kp RGUI      &kp RALT      &kp RCTRL     &kp RSHFT     _____
      // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤                 ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
           _____         _____         _____         _____         _____         _____                           _____         _____         _____         _____         _____         _____
      // ╰─────────────┴─────────────┴─────────────┴──────┬─────────────┬─────────────┬──────╯──────╮   ╭──────╰──────┬──────┴──────┬──────┴──────┬──────┴─────────────┴─────────────┴─────────────╯
