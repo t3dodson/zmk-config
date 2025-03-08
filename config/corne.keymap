@@ -62,11 +62,11 @@ ZMK_COMBO(combo_forward_tab, FRWDTAB, LT3 LT4)
 #define THUMBS LH0 LH1 LH2 RH0 RH1 RH2
 
 
-#define MO_TOG(layer) &mo_tog layer layer
+#define MO_TOG(layer) &behavior_mo_tog layer layer
 ZMK_HOLD_TAP(behavior_mo_tog,
     flavor = "hold-preferred";
     tapping-term-ms = <200>;
-    bindings = <&mo>, <&tog>
+    bindings = <&mo>, <&tog>;
 )
 
 #define HOME_ROW_MODS_TAPPING_TERM_MS 280
