@@ -40,7 +40,7 @@ ZMK_CONDITIONAL_LAYER(sys, NUM_L FN_L, SYS_L)
   │ 24  25  26  27  28  29 │ 30  31  32  33  34  35 │ │ LB5 LB4 LB3 LB2 LB1 LB0 │ RB0 RB1 RB2 RB3 RB4 RB5 │
   ╰───────────╮ 36  37  38 │ 39  40  41 ╭───────────╯ ╰───────────╮ LH2 LH1 LH0 │ RH0 RH1 RH2 ╭───────────╯
               ╰────────────┴────────────╯                         ╰─────────────┴─────────────╯
-*/,
+*/
 
 ZMK_COMBO(combo_backspace_l, &kp BSPC, LM1 LM2)
 ZMK_COMBO(combo_backspace_r, &kp BSPC, RM1 RM2)
