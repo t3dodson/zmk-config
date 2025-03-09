@@ -47,19 +47,19 @@ ZMK_COMBO(combo_backspace_r, &kp BSPC, RM1 RM2)
 ZMK_COMBO(combo_del_l, &kp DEL, LT1 LT2)
 ZMK_COMBO(combo_del_r, &kp DEL, RT1 RT2)
 
-#define BACK &kp LA(LEFT)
-#define FRWD &kp LA(RIGHT)
-ZMK_COMBO(combo_back_l, BACK, LM2 LM3)
-ZMK_COMBO(combo_forward_l, FRWD, LT2 LT3)
-ZMK_COMBO(combo_back_r, BACK, RM2 RM3)
-ZMK_COMBO(combo_forward_r, FRWD, RT2 RT3)
-
 #define BACKTAB &kp LC(LS(TAB))
 #define FRWDTAB &kp LC(TAB)
-ZMK_COMBO(combo_forward_tab_l, FRWDTAB, LM3 LM4)
-ZMK_COMBO(combo_back_tab_l, BACKTAB, LT3 LT4)
-ZMK_COMBO(combo_forward_tab_r, FRWDTAB, RM3 RM4)
-ZMK_COMBO(combo_back_tab_r, BACKTAB, RT3 RT4)
+ZMK_COMBO(combo_forward_tab_l, FRWDTAB, LM2 LM3)
+ZMK_COMBO(combo_back_tab_l, BACKTAB, LT2 LT3)
+ZMK_COMBO(combo_forward_tab_r, FRWDTAB, RM2 RM3)
+ZMK_COMBO(combo_back_tab_r, BACKTAB, RT2 RT3)
+
+#define BACK &kp LA(LEFT)
+#define FRWD &kp LA(RIGHT)
+ZMK_COMBO(combo_back_l, BACK, LM3 LM4)
+ZMK_COMBO(combo_forward_l, FRWD, LT3 LT4)
+ZMK_COMBO(combo_back_r, BACK, RM3 RM4)
+ZMK_COMBO(combo_forward_r, FRWD, RT3 RT4)
 
 #define KEYS_L LT0 LT1 LT2 LT3 LT4 LT5 LM0 LM1 LM2 LM3 LM4 LM5 LB0 LB1 LB2 LB3 LB4 LB5
 #define KEYS_R RT0 RT1 RT2 RT3 RT4 RT5 RM0 RM1 RM2 RM3 RM4 RM5 RB0 RB1 RB2 RB3 RB4 RB5
