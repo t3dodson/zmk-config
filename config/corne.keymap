@@ -32,8 +32,8 @@
 #define SYS_L 4
 #define _BLANK_L 5
 
-ZMK_CONDITIONAL_LAYER(sys, NUM_L FN_L, SYS_L)
-ZMK_CONDITIONAL_LAYER(fn, NUM_L ED_L, FN_L)
+ZMK_CONDITIONAL_LAYER(system_, NUM_L FN_L, SYS_L)
+ZMK_CONDITIONAL_LAYER(fn_, NUM_L ED_L, FN_L)
 
 /*
   ╭────────────────────────┬────────────────────────╮ ╭─────────────────────────┬─────────────────────────╮
