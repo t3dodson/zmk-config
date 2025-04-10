@@ -11,6 +11,8 @@ on:
 
 jobs:
   draw:
+    # TODO make this work
+    if: false
     uses: caksoylar/keymap-drawer/.github/workflows/draw-zmk.yml@main
     permissions:
       contents: write  # allow workflow to commit to the repo
