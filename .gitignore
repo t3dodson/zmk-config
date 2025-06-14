@@ -1,0 +1,8 @@
+.build
+.west
+modules
+result
+zephyr
+zmk
+zmk-helpers
+
