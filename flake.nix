@@ -19,28 +19,34 @@
       ...
     }:
     let
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
-      zephyr = zephyr-nix.packages.${system};
-      zephyr-sdk = zephyr.sdk-0_17;
-      hosttools = zephyr.hosttools-0_17;
-    in
-    {
-
-      devShells.${system}.default = pkgs.mkShell {
-        packages = [
-          (zephyr-sdk.override {
-            targets = [ "arm-zephyr-eabi" ];
-          })
-          zephyr.pythonEnv
-          zephyr-sdk
-          pkgs.cmake
-          #hosttools
-        ];
-        shellHook = ''
-          export ZMK_BUILD_DIR=$(pwd)/.build;
-          export ZMK_SRC_DIR=$(pwd)/zmk/app;
-        '';
-      };
+      systems = ["x86_64-linux"/* "aarch64-linux" "x86_64-darwin" "aarch64-darwin" */];
+      forAllSystems = nixpkgs.lib.genAttrs systems;
+    in {
+      devShells = forAllSystems (
+        system: let
+          pkgs = nixpkgs.legacyPackages.${system};
+          zephyr = zephyr-nix.packages.${system};
+          zephyr-sdk = zephyr.sdk-0_17;
+          hosttools = zephyr.hosttools-0_17;
+        in {
+          default = pkgs.mkShellNoCC {
+            packages = [
+              (zephyr-sdk.override {
+                targets = [ "arm-zephyr-eabi" ];
+              })
+              zephyr.pythonEnv
+              zephyr-sdk
+              pkgs.cmake
+              pkgs.ninja
+              #hosttools
+            ];
+            shellHook = ''
+              export ZMK_BUILD_DIR=$(pwd)/.build;
+              export ZMK_SRC_DIR=$(pwd)/zmk/app;
+            '';
+          };
+        }
+      );
     };
 }
+

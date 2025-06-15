@@ -1,6 +1,9 @@
 .build
 .west
+build
 modules
+nice-view-gem
+output
 result
 zephyr
 zmk

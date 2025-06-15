@@ -6,6 +6,8 @@ manifest:
       url-base: https://github.com/urob
     # Additional modules containing boards/shields/custom code can be listed here as well
     # See https://docs.zephyrproject.org/3.2.0/develop/west/manifest.html#projects
+    - name: t3dodson
+      url-base: https://github.com/t3dodson
   projects:
     - name: zmk
       remote: zmkfirmware
@@ -13,6 +15,9 @@ manifest:
       import: app/west.yml
     - name: zmk-helpers
       remote: urob
+      revision: main
+    - name: nice-view-gem
+      remote: t3dodson
       revision: main
   self:
     path: config
