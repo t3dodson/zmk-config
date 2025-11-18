@@ -6,4 +6,5 @@ nix develop
 
 # Flash
 ## Find the usb device
+sudo ./flash.sh
 

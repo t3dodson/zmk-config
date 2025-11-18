@@ -5,6 +5,7 @@ modules
 nice-view-gem
 output
 result
+#urob-config
 zephyr
 zmk
 zmk-helpers
