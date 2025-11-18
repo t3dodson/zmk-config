@@ -38,31 +38,44 @@ west zephyr-export
 
 export CMAKE_PREFIX_PATH="$REPO_DIR/zephyr:$CMAKE_PREFIX_PATH"
 
-### Build left side
-west build -d "$BUILD_DIR/left" -p -b "$BOARD" \
-  -s "$APP_DIR" \
-  -- -DSHIELD="$SHIELDS_LEFT" \
-      -DZMK_CONFIG="$CONFIG_DIR" \
-      -DZMK_EXTRA_MODULES="$EXTRA_MODULES"
+MY_BOARD_SUFFIXES=("custom" "travel")
 
-### Build right side
-west build -d "$BUILD_DIR/right" -p -b "$BOARD" \
-  -s "$APP_DIR" \
-  -- -DSHIELD="$SHIELDS_RIGHT" \
-      -DZMK_CONFIG="$CONFIG_DIR" \
-      -DZMK_EXTRA_MODULES="$EXTRA_MODULES"
+for SUFFIX in "${MY_BOARD_SUFFIXES[@]}"; do
 
-### Build settings_reset
-west build -d "$BUILD_DIR/settings_reset" -p -b "$BOARD" \
-  -s "$APP_DIR" \
-  -- -DSHIELD="$SHIELDS_SETTINGS" \
-      -DZMK_CONFIG="$CONFIG_DIR" \
-      -DZMK_EXTRA_MODULES="$EXTRA_MODULES"
+	LEFT="left-${SUFFIX}"
+	RIGHT="right-${SUFFIX}"
+	SETTINGS_RESET="settings_reset-${SUFFIX}"
+	BT_NAME="corne-${SUFFIX}"
 
-### Copy output firmware files
-cp "$BUILD_DIR/left/zephyr/zmk.uf2" "$OUTPUT_DIR/left.uf2"
-cp "$BUILD_DIR/right/zephyr/zmk.uf2" "$OUTPUT_DIR/right.uf2"
-cp "$BUILD_DIR/settings_reset/zephyr/zmk.uf2" "$OUTPUT_DIR/settings_reset.uf2"
+	### Build left side
+	west build -d "$BUILD_DIR/$LEFT" -p -b "$BOARD" \
+	  -s "$APP_DIR" \
+	  -- -DSHIELD="$SHIELDS_LEFT" \
+	      -DZMK_CONFIG="$CONFIG_DIR" \
+	      -DZMK_BT_DEVICE_NAME="$BT_NAME" \
+	      -DZMK_EXTRA_MODULES="$EXTRA_MODULES"
 
+	### Build right side
+	west build -d "$BUILD_DIR/$RIGHT" -p -b "$BOARD" \
+	  -s "$APP_DIR" \
+	  -- -DSHIELD="$SHIELDS_RIGHT" \
+	      -DZMK_CONFIG="$CONFIG_DIR" \
+	      -DZMK_BT_DEVICE_NAME="$BT_NAME" \
+	      -DZMK_EXTRA_MODULES="$EXTRA_MODULES"
+
+	### Build settings_reset
+	west build -d "$BUILD_DIR/$SETTINGS_RESET" -p -b "$BOARD" \
+	  -s "$APP_DIR" \
+	  -- -DSHIELD="$SHIELDS_SETTINGS" \
+	      -DZMK_CONFIG="$CONFIG_DIR" \
+	      -DZMK_BT_DEVICE_NAME="$BT_NAME" \
+	      -DZMK_EXTRA_MODULES="$EXTRA_MODULES"
+
+	### Copy output firmware files
+	cp "$BUILD_DIR/$LEFT/zephyr/zmk.uf2" "$OUTPUT_DIR/$LEFT.uf2"
+	cp "$BUILD_DIR/$RIGHT/zephyr/zmk.uf2" "$OUTPUT_DIR/$RIGHT.uf2"
+	cp "$BUILD_DIR/$SETTINGS_RESET/zephyr/zmk.uf2" "$OUTPUT_DIR/$SETTINGS_RESET.uf2"
+
+done
 echo "✅ Build complete. Output files in: $OUTPUT_DIR"
 
