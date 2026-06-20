@@ -1,10 +1,16 @@
 ![keymap render](./keymap-drawer/corne.svg)
 
-# Build
+# Nix Shell
 nix develop
-./build.sh
+
+# Build
+nix run .#build
 
 # Flash
-## Find the usb device
+nix run .#flash
+
+## Without Nix
+nix develop
+./build.sh
 sudo ./flash.sh
 

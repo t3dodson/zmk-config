@@ -8,16 +8,26 @@ manifest:
     # See https://docs.zephyrproject.org/3.2.0/develop/west/manifest.html#projects
     - name: t3dodson
       url-base: https://github.com/t3dodson
+    - name: M165437
+      url-base: https://github.com/M165437
+    # Local override while developing the dynamic NKRO feature (see ~/code/zmk and
+    # ~/code/nice-view-gem, both on branch "dynamic-nkro"). Once pushed to the t3dodson
+    # forks this should switch back to the zmkfirmware/t3dodson remotes above and real
+    # commit hashes.
+    - name: local
+      url-base: file:///home/tom/code
   projects:
     - name: zmk
       remote: zmkfirmware
-      revision: main
+      #revision: main
+      revision: abb64ba3
       import: app/west.yml
     - name: zmk-helpers
       remote: urob
-      revision: main
+      revision: bc114546392b4615ac90a99140eaf21dde31209d
     - name: nice-view-gem
       remote: t3dodson
-      revision: main
+      #revision: bc7dfd3
+      revision: 66ccd12f896cf7f9e0ba07bb858dd6079dbb8496
   self:
     path: config
