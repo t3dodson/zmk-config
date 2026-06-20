@@ -7,7 +7,7 @@ set -e  # Exit on error
 
 ### Variables
 
-BOARD="nice_nano_v2"
+BOARD="nice_nano@2.0.0/nrf52840/zmk"
 
 REPO_DIR="$(pwd)"
 APP_DIR="$REPO_DIR/zmk/app"

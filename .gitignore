@@ -9,4 +9,5 @@ result
 zephyr
 zmk
 zmk-helpers
+config/corne.conf
 

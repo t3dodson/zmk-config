@@ -19,15 +19,16 @@ manifest:
   projects:
     - name: zmk
       remote: zmkfirmware
-      #revision: main
-      revision: abb64ba3
+      # zmkfirmware/zmk main HEAD as of 2026-06-20 (post zephyr-v4.1 HWMv2 migration).
+      # Transitively pins zephyr + modules via its app/west.yml import.
+      revision: 64daf698e073e37b6748ac54f4eb48d8666af0b9
       import: app/west.yml
     - name: zmk-helpers
       remote: urob
       revision: bc114546392b4615ac90a99140eaf21dde31209d
     - name: nice-view-gem
       remote: t3dodson
-      #revision: bc7dfd3
-      revision: 66ccd12f896cf7f9e0ba07bb858dd6079dbb8496
+      # t3dodson/nice-view-gem main: latest-zmk compat fork (spi0 nice_view_spi overlay fix)
+      revision: 41e89785d344f4de52cf023cd1c250d4d19da772
   self:
     path: config

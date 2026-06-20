@@ -117,8 +117,8 @@ flash_uf2() {
    fi
 
    # Delay before copying
-   echo "Mount OK — waiting 8 seconds before copying..."
-   sleep 8
+   echo "Mount OK — waiting 2 seconds before copying..."
+   sleep 2
 
    # Pause if requested
    if (( PAUSE )); then
