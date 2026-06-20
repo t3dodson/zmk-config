@@ -18,17 +18,22 @@ manifest:
       url-base: file:///home/tom/code
   projects:
     - name: zmk
-      remote: zmkfirmware
-      # zmkfirmware/zmk main HEAD as of 2026-06-20 (post zephyr-v4.1 HWMv2 migration).
-      # Transitively pins zephyr + modules via its app/west.yml import.
-      revision: 64daf698e073e37b6748ac54f4eb48d8666af0b9
+      # TEMP local dev override for the dynamic-nkro feature (~/code/zmk @ dynamic-nkro,
+      # rebased onto upstream 64daf698). Restore to the pinned remote SHA below once verified:
+      #   remote: zmkfirmware
+      #   revision: 64daf698e073e37b6748ac54f4eb48d8666af0b9
+      remote: local
+      revision: dynamic-nkro
       import: app/west.yml
     - name: zmk-helpers
       remote: urob
       revision: bc114546392b4615ac90a99140eaf21dde31209d
     - name: nice-view-gem
-      remote: t3dodson
-      # t3dodson/nice-view-gem main: latest-zmk compat fork (spi0 nice_view_spi overlay fix)
-      revision: 41e89785d344f4de52cf023cd1c250d4d19da772
+      # TEMP local dev override (~/code/nice-view-gem @ main = spi0 fix + N/6 nkro indicator).
+      # Restore to the pinned remote SHA below once verified + pushed:
+      #   remote: t3dodson
+      #   revision: 41e89785d344f4de52cf023cd1c250d4d19da772
+      remote: local
+      revision: main
   self:
     path: config
