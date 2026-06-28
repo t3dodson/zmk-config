@@ -65,6 +65,12 @@ ZMK_COMBO(combo_back_l, BACK, LT3 LT4)
 // ZMK_COMBO(combo_forward_r, FRWD, RM3 RM4)
 // ZMK_COMBO(combo_back_r, BACK, RT3 RT4)
 
+// tmux: prefix (ctrl+b) then p/n to switch active window
+ZMK_MACRO(tmux_prev_window, bindings = <&kp LC(B) &kp P>;)
+ZMK_MACRO(tmux_next_window, bindings = <&kp LC(B) &kp N>;)
+ZMK_COMBO(combo_tmux_prev_window, &tmux_prev_window, RT2 RT3)
+ZMK_COMBO(combo_tmux_next_window, &tmux_next_window, RM2 RM3)
+
 ZMK_COMBO(triple_enter_l, &kp RET, LH2 LH1 LH0)
 
 #define KEYS_L LT0 LT1 LT2 LT3 LT4 LT5 LM0 LM1 LM2 LM3 LM4 LM5 LB0 LB1 LB2 LB3 LB4 LB5
